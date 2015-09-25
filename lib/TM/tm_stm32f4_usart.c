@@ -243,7 +243,7 @@ uint16_t TM_USART_Gets(USART_TypeDef* USARTx, char* buffer, uint16_t bufsize) {
 	while (i < (bufsize - 1)) {
 		/* We have available data */
 		buffer[i] = (char) TM_USART_Getc(USARTx);
-		
+
 		/* Check for end of string */
 		if ((uint8_t) buffer[i] == (uint8_t) u->StringDelimiter) {
 			/* Done */
@@ -255,7 +255,7 @@ uint16_t TM_USART_Gets(USART_TypeDef* USARTx, char* buffer, uint16_t bufsize) {
 	}
 	
 	/* Add zero to the end of string */
-	buffer[++i] = 0;               
+	buffer[i] = 0;               
 
 	/* Return number of characters in buffer */
 	return i;
@@ -362,6 +362,14 @@ void TM_USART_Send(USART_TypeDef* USARTx, uint8_t* DataArray, uint16_t count) {
 	}
 }
 
+/*#define LEDOn(led) TM_GPIO_SetPinHigh(GPIOF, led)*/
+/*#define LEDOff(led) TM_GPIO_SetPinLow(GPIOF, led)*/
+/*#define LEDBlink(led) TM_GPIO_TogglePinValue(GPIOF, led)*/
+/*#define LED1 GPIO_PIN_7*/
+/*#define LED2 GPIO_PIN_8*/
+/*#define LED3 GPIO_PIN_9*/
+/*#define LED4 GPIO_PIN_10*/
+
 /* Private functions */
 void TM_USART_INT_InsertToBuffer(TM_USART_t* u, uint8_t c) {
 	/* Still available space in buffer */
@@ -375,6 +383,8 @@ void TM_USART_INT_InsertToBuffer(TM_USART_t* u, uint8_t c) {
 		u->Buffer[u->In] = c;
 		u->In++;
 		u->Num++;
+
+        /*LEDBlink(LED4);*/
 	}
 }
 
@@ -876,8 +886,10 @@ static void TM_USART_INT_Init(
 	
 	/* Fill NVIC settings */
 	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = USART_NVIC_PRIORITY;
-	NVIC_InitStruct.NVIC_IRQChannelSubPriority = TM_USART_INT_GetSubPriority(USARTx);
+	/*NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = USART_NVIC_PRIORITY;*/
+	/*NVIC_InitStruct.NVIC_IRQChannelSubPriority = TM_USART_INT_GetSubPriority(USARTx);*/
+    NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = TM_USART_INT_GetSubPriority(USARTx);
+    NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0;
 	NVIC_Init(&NVIC_InitStruct);
 	
 	/* Fill default settings */

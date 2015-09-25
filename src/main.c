@@ -57,14 +57,14 @@
 void init() {
     SystemInit();
 
-    // For FreeRTOS 
-    NVIC_Config();
-
     // Init the LEDs 
     GPIO_Config();                     
 
+    // For FreeRTOS 
+    NVIC_Config();
+
     // Init for debuging
-    TM_USART_Init(USART1, TM_USART_PinsPack_1, 115200);
+    USART_Config();
 
     // Open CRC for emWin
     CRC_Init();    
@@ -88,6 +88,11 @@ void NVIC_Config() {
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);  
 }
 
+void USART_Config() {
+    TM_USART_Init(USART1, TM_USART_PinsPack_1, 115200);
+    TM_USART_SetCustomStringEndCharacter(USART1, '\r');
+}
+
 int a = 0;
 void blink1(void* p) {
     char c[50];
@@ -99,12 +104,16 @@ void blink1(void* p) {
     vTaskDelete(NULL);
 }
 
+char buf[100];
 void blink2(void* p) {
     for (;;) {
         /*TM_GPIO_TogglePinValue(GPIOF, GPIO_PIN_9);*/
-        TM_USART_Puts(USART1, "ZZZZZ\n\r");
+        int t = TM_USART_Gets(USART1, buf, 90);
+        if (t) {
+            printf("get %s\r\n", buf);
+        }
         // TODO some other test
-        vTaskDelay(1500);
+        vTaskDelay(500);
     }
     vTaskDelete(NULL);
 }
