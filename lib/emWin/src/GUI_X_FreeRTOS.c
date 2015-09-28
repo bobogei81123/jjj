@@ -194,9 +194,14 @@ functions automatically)
 
 */
 
-void GUI_X_Log (const char *s) { }
-void GUI_X_Warn (const char *s) { }
+void GUI_X_Log (const char *s) {
+    printf("[GUI Log] %s\r\n", s);
+}
+void GUI_X_Warn (const char *s) {
+    printf("[GUI Warn] %s\r\n", s);
+}
 void GUI_X_ErrorOut(const char *s) {
+    printf("[GUI Error] %s\r\n", s);
 }
 
 /*************************** End of file ****************************/
