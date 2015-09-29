@@ -21,6 +21,7 @@
 #include "tm_stm32f4_gpio.h"
 #include "tm_stm32f4_usart.h"
 #include "tm_stm32f4_adc.h"
+#include "tm_stm32f4_hcsr04.h"
 /*-----------------------------------------------------------------------------
  *  FreeRTOS
  *-----------------------------------------------------------------------------*/
@@ -39,8 +40,10 @@
  *-----------------------------------------------------------------------------*/
 #include "ff.h"                     
 
-#include "initial.h"
 #include "defines.h"
-
+#include "initial.h"
+#include "mytasks.h"
+#include "rfid_driver.h"
+#include "sonar_driver.h"
 
 #endif /* end of include guard: MAIN_H */

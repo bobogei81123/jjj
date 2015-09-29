@@ -27,9 +27,12 @@ void RFIDSendCommand(RFIDCommand command) {
     switch (command) {
         case kRFIDOn:
             RFIDPuts("set readmode 2");
+            RFIDPuts("set runmilisecond 1000");
+            printf("Start RFID\r\n");
             break;
         case kRFIDOff:
             RFIDPuts("set readmode 0");
+            printf("End RFID\r\n");
             break;
     }
 }

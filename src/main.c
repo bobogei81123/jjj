@@ -1,6 +1,4 @@
 #include "main.h"
-#include "mytasks.h"
-
 
 void _cbButton(WM_MESSAGE *pMsg) {
     switch (pMsg->MsgId) {
@@ -115,6 +113,9 @@ void _file_system_init() {
     }
 }
 
+void _cbRFID(int res) {
+    printf("[Callback] Get = %d\r\n", res);
+}
 
 
 int main()
@@ -128,7 +129,16 @@ int main()
     _file_system_init();
 
     printf("Init done\r\n");
+    SonarInit();
+    RFIDSendCommand(kRFIDOn);
+    RFIDSetCallback(_cbRFID);
 
+    /*while (1) {*/
+        
+        /*printf("Dis = %d\r\n", SonarRead());*/
+        
+        /*sleep(100);*/
+    /*}*/
 
 
     /*int res = GUI_GIF_Draw((const void*) bmpfile, rd, 50, 50);*/
