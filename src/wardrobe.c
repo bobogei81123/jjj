@@ -1,10 +1,10 @@
 #include "wardrobe.h"
 
-clothe clothesDataBase*;
+Clothe clothesDataBase*;
 size_t clothesDataBaseSize;
 void initData()
 {
-    clotheDataBase = (clothe*)malloc(sizeof(clothe)*100);
+    clotheDataBase = (Clothe*)malloc(sizeof(Clothe)*100);
     clothesDataBaseSize = 0;
 }
 void deleteData()
@@ -17,11 +17,17 @@ void addData()
 }
 
 
-void loadData();
-void parseRFIDString();
-void displayData();
+void loadData()
+{
+    clothesDataBaseSize[0].name = (char*)malloc(sizeof(char)*50);
+    strcpy("Polka dot long dress",clothesDataBaseSize[0].name);
+    clothesDataBaseSize[0].id = 1;
+}
 
-clothe findClotheById(int id);
+void parseRFIDString();
+void displayData(Clothe);
+
+Clothe findClotheById(int id);
 {
     size_t buf = findIndexById(id);
     if(buf == -1)

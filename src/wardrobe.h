@@ -6,7 +6,7 @@ typedef struct{
     int id;
     char* name;
 
-} clothe;
+} Clothe;
 
 void initData();
 void deleteData();
@@ -14,10 +14,10 @@ void addData();
 
 void loadData();
 void parseRFIDString();
-void displayData();
+void displayData(Clothe);
 
 size_t findIndexById(int);
 
-clothe findClotheById(int);
+Clothe findClotheById(int);
 
 #endif // WARDROBE_H_INCLUDED
