@@ -135,10 +135,10 @@ int main()
 
     /* Tasks */
     xTaskCreate(heartbeat, "heartbeat", 200, NULL, 1, NULL);
-    xTaskCreate(readUART1, "read_UART1", 200, NULL, 1, NULL);
-    xTaskCreate(readUART3, "read_UART3", 200, NULL, 1, NULL);
+    xTaskCreate(readUART1, "UART1", 200, NULL, 1, NULL);
+    xTaskCreate(readUART3, "UART3", 300, NULL, 1, NULL);
     xTaskCreate(MainTask, "gui_main", 1000, NULL, 1, NULL);
-    xTaskCreate(touchScreenUpdate, "touch_screen", 200, NULL, 1, NULL);
+    xTaskCreate(touchScreenUpdate, "touch", 200, NULL, 1, NULL);
     
     vTaskStartScheduler();  
 }
