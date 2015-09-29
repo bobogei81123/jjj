@@ -41,6 +41,8 @@ static void ButtonCreate(void) {
     hButton = BUTTON_Create(110, 140, 100, 40, GUI_ID_OK, WM_CF_SHOW);
     BUTTON_SetFont(hButton, &GUI_FontComic18B_ASCII);
     BUTTON_SetText(hButton, "Click me...");
+    extern const GUI_BITMAP bmgonext;
+    BUTTON_SetBitmap(hButton, BUTTON_BI_UNPRESSED, &bmgonext);
     WM_SetCallback(hButton, _cbButton);
 
     /*LISTVIEW_Handle hListview;*/
