@@ -3,5 +3,6 @@
 
 #include "heartbeat.h"
 #include "read_uart.h"
+#include "touch_screen.h"
 
 #endif

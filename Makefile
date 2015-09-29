@@ -13,6 +13,8 @@ EMWIN = ./lib/emWin
 SRC = ./src
 CONFIG = $(SRC)/config
 TASKS = $(SRC)/tasks
+DRIVERS = $(SRC)/drivers
+BITMAPS = $(SRC)/bitmaps
 
 SOURCES += $(wildcard $(CMSIS)/*.c)
 SOURCES += $(CMSIS)/startup_stm32f4xx.S
@@ -26,6 +28,8 @@ SOURCES += $(wildcard $(EMWIN)/src/*.c)
 SOURCES += $(wildcard $(SRC)/*.c)
 SOURCES += $(wildcard $(CONFIG)/*.c)
 SOURCES += $(wildcard $(TASKS)/*.c)
+SOURCES += $(wildcard $(DRIVERS)/*.c)
+SOURCES += $(wildcard $(BITMAPS)/*.c)
 
 #SOURCES += stm32f4xx_it.c
 #SOURCES += system_stm32f4xx.c
@@ -37,7 +41,7 @@ OBJECTS = $(addprefix $(BUILDDIR)/, $(addsuffix .o, $(basename $(SOURCES))))
 
 INCLUDES = $(CMSIS) $(DEVICE)/inc $(FATFS) \
 		   $(SRC) $(TM) $(FREERTOS)/inc $(BOARD) \
-		   $(EMWIN)/inc  $(USB) $(CONFIG) $(TASKS)
+		   $(EMWIN)/inc  $(USB) $(CONFIG) $(TASKS) $(DRIVERS)
 INCLUDESPARAM = $(foreach d, $(INCLUDES), -I$d)
 #INCLUDES += -IProgram -I. -ILibraries/CMSIS -ILibraries/STM32F4xx_StdPeriph_Driver/inc
 #INCLUDES += 
