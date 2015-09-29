@@ -73,7 +73,7 @@ void MainTask(void) {
     GUI_Clear();
     GUI_SetColor(GUI_WHITE);
     GUI_SetFont(&GUI_FontComic24B_ASCII);
-    GUI_DispStringHCenterAt("ABC 123 456", 160, 5);
+    GUI_DispStringHCenterAt("Intellegent Closet", 120, 6);
     ButtonCreate();
 
     while (1) {
@@ -114,17 +114,21 @@ void _file_system_init() {
 }
 
 void _cbRFID(int res) {
-    printf("[Callback] Get = %d\r\n", res);
+    printf("[Callback RFID] Get = %d\r\n", res);
 }
 
+void _cbSonar(int res) {
+    printf("[Callback Sonar] Get = %d\r\n", res);
+}
 
 int main()
 {
-    printf("System On\r\n");
 
     init();
+    printf("System On and Finish Init\r\n");
     LEDOn(LED1);
     LEDOn(LED2);
+
 
     _file_system_init();
 
@@ -132,6 +136,7 @@ int main()
     SonarInit();
     RFIDSendCommand(kRFIDOn);
     RFIDSetCallback(_cbRFID);
+    RFIDSetCallback(_cbSonar);
 
     /*while (1) {*/
         

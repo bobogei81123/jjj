@@ -1,6 +1,7 @@
 #include "rfid_driver.h"
 
 void (*RFIDCallback)(int) = NULL; 
+int RFIDStatus = 0;
 
 static void RFIDPuts(char *str) {
     TM_USART_Puts(USART3, str);
@@ -13,7 +14,7 @@ void RFIDGets(char *str) {
     str ++;
     char buf[40];
     int ret = sscanf(str, "%40[^,]", buf);
-    if (ret == 1) {
+    if (ret == 1 && RFIDStatus) {
         int len = strlen(buf);
         int result = CTOI(buf[len-2]) * 10 + CTOI(buf[len-1]);
         printf("scan = %d\r\n", result);
@@ -29,10 +30,12 @@ void RFIDSendCommand(RFIDCommand command) {
             RFIDPuts("set readmode 2");
             RFIDPuts("set runmilisecond 1000");
             printf("Start RFID\r\n");
+            RFIDStatus = 1;
             break;
         case kRFIDOff:
             RFIDPuts("set readmode 0");
             printf("End RFID\r\n");
+            RFIDStatus = 0;
             break;
     }
 }

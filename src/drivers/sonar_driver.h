@@ -10,8 +10,10 @@
 
 #define HCSR04_MIN_DIS 10
 #define HCSR04_MAX_DIS 300
+#define HCSR04_VALID_DIS 200
 
 void SonarInit();
 int SonarRead();
+int SonarScanTask();
 
 #endif

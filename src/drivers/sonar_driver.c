@@ -26,4 +26,20 @@ int SonarRead() {
     return -1;
 }
 
+void SonarSetCallback(void (*cbFunc)(int)) {
+    SonarCallback = cbFunc;
+}
+
+void SonarScanTask(void* p) {
+    while (1) {
+        int t = SonarRead();
+        if (t > 0 && t < HCSR04_VALID_DIS) {
+            if (SonarCallback) {
+                SonarCallback(t);
+                vTaskDelete(NULL);
+            }
+        }
+        vTaskDelay(50);
+    }
+}
 
