@@ -14,6 +14,6 @@
 
 void SonarInit();
 int SonarRead();
-int SonarScanTask();
+void SonarScanTask(void*);
 
 #endif

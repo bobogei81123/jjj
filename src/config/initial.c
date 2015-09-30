@@ -49,6 +49,9 @@ void init() {
     // Init for debuging
     USART_Config();
 
+    // LED Controller Init
+    LEDDecoderInit();
+
     // Open CRC for emWin
     CRC_Init();    
 

@@ -14,6 +14,7 @@ void LEDDecoderInit() {
             TM_GPIO_Speed_Medium
         );
     }
+    LEDDecoderSet(LEDDecoderValue);
 }
 
 void LEDDecoderSet(int v) {

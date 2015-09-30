@@ -45,5 +45,6 @@
 #include "mytasks.h"
 #include "rfid_driver.h"
 #include "sonar_driver.h"
+#include "gui_main.h"
 
 #endif /* end of include guard: MAIN_H */

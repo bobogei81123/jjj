@@ -9,10 +9,18 @@ void readUART1(void* p) {
         int t = TM_USART_Gets(USART1, buf1, 90);
         if (t) {
             printf("[UART1] get = %s\r\n", buf1);
-            int ret = strncmp(buf1, "send ", 5);
             if (!strncmp(buf1, "send ", 5)) {
                 TM_USART_Puts(USART3, buf1+5);
                 TM_USART_Putchar(USART3, '\r');
+            }
+            if (!strncmp(buf1, "setled ", 7)) {
+                printf("123\r\n");
+                int led;
+                int flag = sscanf(buf1, "setled %d", &led);
+                if (flag == 1 && led >= 0 && led < 6) {
+                    printf("Set LED = %d\r\n", led);
+                    LEDDecoderSet(led);
+                }
             }
         }
         vTaskDelay(100);
