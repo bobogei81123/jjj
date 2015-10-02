@@ -93,6 +93,15 @@ static void GUIMakeWinIn() {
 
 MULTIPAGE_Handle hMultipage;
 LISTVIEW_Handle hListview;
+const char* clothes_name[][4] = {
+    {"1", "purple", "plaid", "shirt"},
+    {"2", "pink", "polo", "shirt"},
+    {"3", "black", "leather", "jacket"},
+    {"4", "black", "carton", "jeans"},
+    {"5", "burgundy", "", "shirt"},
+    {"6", "gray", "trendy", "vest"},
+    {"3","black","","shorts"}
+};
 static void GUIMakeWinOut() {
     hWinOut = WINDOW_CreateEx(
         20, 140, 200, 150,
@@ -128,19 +137,23 @@ static void GUIMakeWinOut() {
         0,
         ++curId
     );
-    LISTVIEW_AddColumn( hListview, 120 ,
-            "Cloth",
+    LISTVIEW_AddColumn( hListview, 30 ,
+            "Sec",
             GUI_TA_HCENTER | GUI_TA_VCENTER );
-    LISTVIEW_AddColumn( hListview, 60 ,
-            "Position",
+    LISTVIEW_AddColumn( hListview, 50 ,
+            "Color",
+            GUI_TA_HCENTER | GUI_TA_VCENTER );
+    LISTVIEW_AddColumn( hListview, 50 ,
+            "Adj",
+            GUI_TA_HCENTER | GUI_TA_VCENTER );
+    LISTVIEW_AddColumn( hListview, 50 ,
+            "Type",
             GUI_TA_HCENTER | GUI_TA_VCENTER );
 
-    const char* name[][2] = {
-        {"Polka dot long dress", "40"},
-        {"White Shirt", "60"}
-    };
-    LISTVIEW_AddRow( hListview, (GUI_ConstString*)name[0] );
-    LISTVIEW_AddRow( hListview, (GUI_ConstString*)name[1] );
+    int i;
+    for (i = 0; i < 6; i++) {
+        LISTVIEW_AddRow( hListview, (GUI_ConstString*)clothes_name[i] );
+    }
 
 
     WM_HWIN hMultipageWindow2 = WINDOW_CreateEx(
@@ -151,7 +164,27 @@ static void GUIMakeWinOut() {
         ++curId,
         NULL
     );
-    WINDOW_SetBkColor(hMultipageWindow2, GUI_BLUE);
+
+    LISTVIEW_Handle hListview2 = LISTVIEW_CreateEx(0, 0, 180, 130,
+        hMultipageWindow2,
+        WM_CF_SHOW,
+        0,
+        ++curId
+    );
+    LISTVIEW_AddColumn( hListview2, 90 ,
+            "",
+            GUI_TA_HCENTER | GUI_TA_VCENTER );
+    LISTVIEW_AddColumn( hListview2, 90 ,
+            "",
+            GUI_TA_HCENTER | GUI_TA_VCENTER );
+
+    const char* pair_name[][4] = {
+        {"black shorts", "pink polo shirt"},
+        {"purple plaid shirt", "black carton jeans"},
+    };
+    LISTVIEW_AddRow( hListview2, (GUI_ConstString*)pair_name[0] );
+    LISTVIEW_AddRow( hListview2, (GUI_ConstString*)pair_name[1] );
+
     MULTIPAGE_AddPage(hMultipage, hMultipageWindow2, "Suggest");
 }
 
@@ -230,5 +263,17 @@ void ProcSelectChanged() {
     } else {
         WM_BringToTop(hWinOut);
         WM_Paint(hWinOut);
+    }
+}
+
+void GUITest(int a) {
+    switch (a) {
+        case 0:
+            LISTVIEW_AddRow( hListview, (GUI_ConstString*)clothes_name[6] );
+            break;
+        case 1:
+            LISTVIEW_DeleteRow( hListview, 0 );
+            LISTVIEW_DeleteRow( hListview, 2 );
+            break;
     }
 }

@@ -14,12 +14,19 @@ void readUART1(void* p) {
                 TM_USART_Putchar(USART3, '\r');
             }
             if (!strncmp(buf1, "setled ", 7)) {
-                printf("123\r\n");
                 int led;
                 int flag = sscanf(buf1, "setled %d", &led);
                 if (flag == 1 && led >= 0 && led < 6) {
                     printf("Set LED = %d\r\n", led);
                     LEDDecoderSet(led);
+                }
+            }
+            if (!strncmp(buf1, "guitest ", 8)) {
+                int tc;
+                int flag = sscanf(buf1, "guitest %d", &tc);
+                if (flag == 1) {
+                    printf("Test GUI = %d\r\n", tc);
+                    GUITest(tc);
                 }
             }
             int len = strlen(buf1);
