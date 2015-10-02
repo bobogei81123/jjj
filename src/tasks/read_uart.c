@@ -22,6 +22,11 @@ void readUART1(void* p) {
                     LEDDecoderSet(led);
                 }
             }
+            int len = strlen(buf1);
+            if (len == 1 && buf1[0] == 'b') {
+                printf("Blink\r\n");
+                LEDDecoderSet(-1);
+            }
         }
         vTaskDelay(100);
     }

@@ -51,7 +51,7 @@ static void GUICreate(void) {
 static void GUITitleCreate() {
     GUI_SetColor(GUI_BLACK);
     GUI_SetFont(&GUI_FontComic24B_ASCII);
-    GUI_DispStringHCenterAt("Intellegent Closet", 120, 6);
+    GUI_DispStringHCenterAt("Smart Wardrobe", 120, 6);
 }
 
 ICONVIEW_Handle hIconView;

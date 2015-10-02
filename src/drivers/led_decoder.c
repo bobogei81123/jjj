@@ -18,7 +18,13 @@ void LEDDecoderInit() {
 }
 
 void LEDDecoderSet(int v) {
-    LEDDecoderValue = v;
+    if (v < 0) {
+        LEDDecoderValue *= -1;
+    } else {
+        LEDDecoderValue = v;
+    }
+    v = LEDDecoderValue >= 0 ? LEDDecoderValue : 7;
+    printf("%d %d\r\n", v, LEDDecoderValue);
     int i;
     for (i=0; i<3; i++) {
         if (v & (1<<i)) {
